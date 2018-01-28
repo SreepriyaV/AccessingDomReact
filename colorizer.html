@@ -55,25 +55,21 @@
         super(props, context);
    
           this.state = {
-            color: "",
             bgColor: "white"
           };
    
-          this.colorValue = this.colorValue.bind(this);
+        
           this.setNewColor = this.setNewColor.bind(this);
         }
-   
-        colorValue(e) {
-          this.setState({ 
-            color: e.target.value 
-          });
-        }
+  
    
         setNewColor(e) {
           this.setState({
-            bgColor: this.state.color
+            bgColor: e.target.color.value 
           });
-   
+          // https://www.kirupa.com/react/accessing_dom_elements.htm
+          this._input.value="";
+          this._input.focus();
           e.preventDefault();
         }
    
@@ -87,7 +83,10 @@
               <div style={squareStyle} className="colorSquare"></div>
    
               <form onSubmit={this.setNewColor}>
-                <input onChange={this.colorValue}
+                <input 
+                //ref gets the refernce to the dom element 
+                  ref={ele=> this._input=ele }
+                  name="color"
                   placeholder="Enter a color value"></input>
                 <button type="submit">go</button>
               </form>
